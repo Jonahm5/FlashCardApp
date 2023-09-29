@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/Palette4"
+    android:layout_centerHorizontal="true">
+
+    <TextView
+        android:id="@+id/Banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Math Flashcards"
+        android:textSize="50sp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@color/Palette3"
+        android:textColor="@color/Palette1"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/Num1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:textSize="70sp"
+        android:text="#"
+        android:layout_below="@+id/Banner"
+        android:layout_marginTop="50dp"
+        android:background="@color/Palette3"
+        android:textColor="@color/Palette1"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/Symbol"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:textSize="70sp"
+        android:background="@color/Palette3"
+        android:textColor="@color/Palette1"
+        android:layout_below="@+id/Num1"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="+/-" />
+
+    <TextView
+        android:id="@+id/Num2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:textSize="70sp"
+        android:layout_below="@+id/Num1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@color/Palette3"
+        android:textColor="@color/Palette1"
+        android:gravity="center"
+        android:text="#"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="3dp"
+        android:layout_below="@+id/Num2"
+        android:background="@color/Palette1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/line"
+            android:background="@color/Palette4"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp">
+
+                <TextView
+                    android:id="@+id/YourAnswer"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textColor="@color/Palette1"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="Your Answer: " />
+
+                <EditText
+                    android:maxLength="30"
+                    android:id="@+id/answer"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:autoSizeTextType="uniform"
+                    android:digits="0,1,2,3,4,5,6,7,8,9" />
+
+                <Button
+                    android:id="@+id/Submit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/Palette2"
+                    android:text="SUBMIT"
+                    android:textColor="@color/Palette1"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal"
+                android:layout_below="@+id/answer"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/QuestionsDone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="#"
+                    android:textColor="@color/Palette1"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="/10 Questions Completed"
+                    android:textColor="@color/Palette1"
+                    android:textSize="18dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+            <Button
+                android:id="@+id/GenProbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/Palette2"
+                android:textColor="@color/Palette1"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:text="Generate 10 Random Problems" />
+        </RelativeLayout>
+
+
+
