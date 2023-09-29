@@ -1,11 +1,10 @@
 package com.example.flashcardapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import kotlin.random.Random
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var submitButton: Button
@@ -16,7 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var Number2Text: TextView
     private lateinit var SymbolText: TextView
 
-
+    private var submitted = false
+    private var userAnswer = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,39 +32,47 @@ class MainActivity : AppCompatActivity() {
         genProbBut = findViewById<Button>(R.id.GenProbs)
         answerEdit = findViewById<EditText>(R.id.answer)
 
-        var count = 0
-        var ResultList = List(10) {null}
-        var AorS = 8
-        var choice = ""
-
-
 
         submitButton.setOnClickListener{
             val userAnswer = answerEdit.text.toString().toInt()
+            submitted = true
         }
 
         genProbBut.setOnClickListener{
+            var count = 0
+            var answer = 0
+            var ResultList = MutableList(10) { false }
             genProbBut.isEnabled = false
             while (count < 10) {
-                SetRound()
+                submitted = false
+                answer = SetRound()
+                while(!submitted){
+                }
+                ResultList[count] = answer == userAnswer
                 count++
-                questionsDoneTextView.text = count.toString()
+                questionsDoneTextView.text = count.toString() + 1
             }
 
         }
 
-        fun SetRound() {
-            Number1Text.text = (1..99).random().toString()
-            Number2Text.text = (1..20).random().toString()
-            AorS = (1..2).random()
-            if(AorS == 1)
-                choice = "+"
-            else
-                choice = "-"
-            SymbolText.text = choice
 
+    }
+    fun SetRound(): Int {
+        var AorS = 8
+        var answer = 0
+        var onenum = 0
+        var twonum = 0
+        onenum = (1..99).random()
+        Number1Text.text = onenum.toString()
+        twonum = (1..20).random()
+        Number2Text.text = twonum.toString()
+        AorS = (1..2).random()
+        if(AorS == 1) {
+            SymbolText.text = "+"
+            return (onenum + twonum)
+        }else{
+            SymbolText.text = "-"
+            return (onenum - twonum)
         }
-
-
     }
 }
