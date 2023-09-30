@@ -1,9 +1,12 @@
 package com.example.flashcardapp
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +18,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var Number2Text: TextView
     private lateinit var SymbolText: TextView
 
+    private var count = 0
+    private var resultlist = mutableListOf<Boolean>()
     private var submitted = false
     private var userAnswer = 0
+    private var num1 = 0
+    private var num2 = 0
+    private var Symbol = ""
+    private var answer = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,45 +43,71 @@ class MainActivity : AppCompatActivity() {
 
 
         submitButton.setOnClickListener{
-            val userAnswer = answerEdit.text.toString().toInt()
-            submitted = true
-        }
-
-        genProbBut.setOnClickListener{
-            var count = 0
-            var answer = 0
-            var ResultList = MutableList(10) { false }
-            genProbBut.isEnabled = false
-            while (count < 10) {
-                submitted = false
-                answer = SetRound()
-                while(!submitted){
-                }
-                ResultList[count] = answer == userAnswer
-                count++
-                questionsDoneTextView.text = count.toString() + 1
+            if (answerEdit.text.isNotEmpty()){
+                userAnswer = answerEdit.text.toString().toInt()
+                submitted = true
+                answerEdit.text.clear()
+            } else{
+                Toast.makeText(this, "Please enter an answer", Toast.LENGTH_SHORT).show()
             }
 
         }
 
+        genProbBut.setOnClickListener{
+            questionsDoneTextView.text = "0"
+            count = 0
+            resultlist.clear()
+            genProbBut.isEnabled = false
+            nextQ()
+            }
+        }
 
+    private fun nextQ(){
+        if (count < 10){
+            submitted = false
+            val answer = SetRound()
+            Update()
+            waitnow(answer)
+        } else {
+            val correct = resultlist.count{it}.toString()
+            Toast.makeText(this,"You got $correct out of 10!", Toast.LENGTH_SHORT).show()
+            genProbBut.isEnabled = true
+        }
+    }
+
+    private fun Update(){
+        Number1Text.text = num1.toString()
+        Number2Text.text = num2.toString()
+        SymbolText.text = Symbol
+    }
+    
+    private fun waitnow(answer: Int){
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            if (submitted){
+                resultlist.add(userAnswer == answer)
+                count++
+                questionsDoneTextView.text = (count).toString()
+                nextQ()
+            } else {
+                waitnow(answer)
+            }
+        }, 100)
     }
     fun SetRound(): Int {
-        var AorS = 8
-        var answer = 0
-        var onenum = 0
-        var twonum = 0
-        onenum = (1..99).random()
-        Number1Text.text = onenum.toString()
-        twonum = (1..20).random()
-        Number2Text.text = twonum.toString()
-        AorS = (1..2).random()
-        if(AorS == 1) {
-            SymbolText.text = "+"
+
+        val AorS = (1..2).random()
+        val onenum = (1..99).random()
+        val twonum = (1..20).random()
+        num1 = onenum
+        num2 = twonum
+
+        if(AorS == 1){
+            Symbol = "+"
             return (onenum + twonum)
-        }else{
-            SymbolText.text = "-"
-            return (onenum - twonum)
+        } else{
+            Symbol = "-"
+            return(onenum - twonum)
         }
     }
 }
