@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FlashCardApp</string>
+    <string name="Gen10">Generate 10 Random Problems</string>
+    <string name="hashtag">#</string>
+    <string name="PM">+/-</string>
+    <string name="YourA">Your Answer: </string>
+    <string name="Completed">/10 Questions Completed</string>
+    <string name="MFlash">Math Flashcards</string>
+    <string name="Submit">Submit</string>
+
 </resources>
