@@ -3,11 +3,16 @@ package com.example.flashcardapp
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.activity.viewModels
+import androidx.lifecycle.LiveData
 
 class MainActivity : AppCompatActivity() {
     private lateinit var submitButton: Button
@@ -27,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     private var Symbol = ""
     private var answer = 0
 
+    private val sI: savedInfoHere by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,10 +43,12 @@ class MainActivity : AppCompatActivity() {
         Number2Text = findViewById<TextView>(R.id.Num2)
         SymbolText = findViewById<TextView>(R.id.Symbol)
 
-
         submitButton = findViewById<Button>(R.id.Submit)
         genProbBut = findViewById<Button>(R.id.GenProbs)
         answerEdit = findViewById<EditText>(R.id.answer)
+
+        num1 = sI.num1 //Mak: The code crashes here when we generate questions
+        Update()
 
 
         submitButton.setOnClickListener{
@@ -50,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             } else{
                 Toast.makeText(this, "Please enter an answer", Toast.LENGTH_SHORT).show()
             }
-
+            sI.updateVals(count, resultlist, submitted, userAnswer, num1, num2, Symbol, answer)
         }
 
         genProbBut.setOnClickListener{
@@ -59,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             resultlist.clear()
             genProbBut.isEnabled = false
             nextQ()
+            sI.updateVals(count, resultlist, submitted, userAnswer, num1, num2, Symbol, answer)
             }
         }
 
