@@ -47,8 +47,19 @@ class MainActivity : AppCompatActivity() {
         genProbBut = findViewById<Button>(R.id.GenProbs)
         answerEdit = findViewById<EditText>(R.id.answer)
 
-        num1 = sI.num1 //Mak: The code crashes here when we generate questions
-        Update()
+        if (sI.changed) {
+            count = sI.count
+            resultlist = sI.resultlist
+            submitted = false
+            userAnswer = sI.userAnswer
+            num1 = sI.num1
+            num2 = sI.num2
+            Symbol = sI.Symbol
+            answer = sI.answer
+            genProbBut.isEnabled = false
+            Update()
+            waitnow(answer)
+        }
 
 
         submitButton.setOnClickListener{
@@ -56,14 +67,13 @@ class MainActivity : AppCompatActivity() {
                 userAnswer = answerEdit.text.toString().toInt()
                 submitted = true
                 answerEdit.text.clear()
+                sI.updateVals(count, resultlist, submitted, userAnswer, num1, num2, Symbol, answer)
             } else{
                 Toast.makeText(this, "Please enter an answer", Toast.LENGTH_SHORT).show()
             }
-            sI.updateVals(count, resultlist, submitted, userAnswer, num1, num2, Symbol, answer)
         }
 
         genProbBut.setOnClickListener{
-            questionsDoneTextView.text = "0"
             count = 0
             resultlist.clear()
             genProbBut.isEnabled = false
@@ -82,6 +92,9 @@ class MainActivity : AppCompatActivity() {
             val correct = resultlist.count{it}.toString()
             Toast.makeText(this,"You got $correct out of 10!", Toast.LENGTH_SHORT).show()
             genProbBut.isEnabled = true
+
+            //Mak
+            sI.changed = false
         }
     }
 
@@ -89,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         Number1Text.text = num1.toString()
         Number2Text.text = num2.toString()
         SymbolText.text = Symbol
+        questionsDoneTextView.text = count.toString()
     }
     
     private fun waitnow(answer: Int){
@@ -105,7 +119,6 @@ class MainActivity : AppCompatActivity() {
         }, 100)
     }
     fun SetRound(): Int {
-
         val AorS = (1..2).random()
         val onenum = (1..99).random()
         val twonum = (1..20).random()
