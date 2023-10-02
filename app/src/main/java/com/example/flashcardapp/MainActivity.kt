@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
                 userAnswer = answerEdit.text.toString().toInt()
                 submitted = true
                 answerEdit.text.clear()
-                sI.updateVals(count, resultlist, submitted, userAnswer, num1, num2, Symbol, answer)
             } else{
                 Toast.makeText(this, "Please enter an answer", Toast.LENGTH_SHORT).show()
             }
@@ -78,7 +77,6 @@ class MainActivity : AppCompatActivity() {
             resultlist.clear()
             genProbBut.isEnabled = false
             nextQ()
-            sI.updateVals(count, resultlist, submitted, userAnswer, num1, num2, Symbol, answer)
             }
         }
 
@@ -88,6 +86,7 @@ class MainActivity : AppCompatActivity() {
             val answer = SetRound()
             Update()
             waitnow(answer)
+            sI.updateVals(count, resultlist, submitted, userAnswer, num1, num2, Symbol, answer)
         } else {
             val correct = resultlist.count{it}.toString()
             Toast.makeText(this,"You got $correct out of 10!", Toast.LENGTH_SHORT).show()
