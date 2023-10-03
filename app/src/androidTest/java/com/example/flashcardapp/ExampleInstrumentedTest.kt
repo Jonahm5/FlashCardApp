@@ -47,7 +47,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun rotation10times() {
+    fun rotation3times() {
         val device = UiDevice.getInstance(getInstrumentation())
 
         device.setOrientationLeft()
