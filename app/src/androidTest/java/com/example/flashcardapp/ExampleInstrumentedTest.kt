@@ -3,6 +3,7 @@
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ActivityScenario.launch
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -56,5 +57,13 @@ class MainActivityTest {
         onView(withId(R.id.Num1)).check(matches(withText(R.string.hashtag)))
 
         //checks if the text stays the same after rotation
+    }
+
+    @Test
+    fun testGenButOnlyOnce(){
+        onView(withId(R.id.GenProbs)).perform(click())
+        onView(withId(R.id.GenProbs)).check{view, _ ->
+            assert(!view.isEnabled)
+        }
     }
 }
