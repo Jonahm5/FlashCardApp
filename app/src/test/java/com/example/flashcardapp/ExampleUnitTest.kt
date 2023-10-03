@@ -16,8 +16,17 @@ import org.junit.Test
 
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun savedInfoInitializesCorrectly() {
+        var newInfo = savedInfoHere()
+        assertEquals(newInfo.count, 0)
+        assertEquals(newInfo.resultlist.size, 0)
+        assertEquals(newInfo.submitted, false)
+        assertEquals(newInfo.userAnswer, 0)
+        assertEquals(newInfo.num1, 0)
+        assertEquals(newInfo.num2, 0)
+        assertEquals(newInfo.Symbol, "")
+        assertEquals(newInfo.answer, 0)
+        assertEquals(newInfo.changed, false)
     }
 
     @Test
